@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>نظام المكتبة الذكية - ذكاء الأعمال</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            background-color: #f8f9fa;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f3f4f5;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #707973;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0f5238;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in-down {
+            animation: fadeInDown 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+
+        /* Shimmer Effect */
+        @keyframes shimmer {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .shimmer-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        .shimmer-btn::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.4),
+                transparent
+            );
+            transform: translateX(100%);
+            animation: shimmer 3s infinite;
+        }
+
+        /* Chart Animations */
+        @keyframes growUp {
+            from { height: 0; }
+            to { height: var(--chart-height); }
+        }
+        .bar-animate {
+            animation: growUp 1s ease-out forwards;
+        }
+
+        /* Sidebar Icon Motion */
+        .nav-item:hover .material-symbols-outlined {
+            animation: iconBounce 0.5s ease-in-out;
+        }
+        @keyframes iconBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+        
+        .table-row-hover:hover {
+            background-color: #f3f4f5;
+            transform: translateX(-4px);
+            transition: all 0.2s ease-in-out;
+        }
+
+        /* Heatmap Grid */
+        .heatmap-cell {
+            transition: all 0.3s ease;
+        }
+        .heatmap-cell:hover {
+            transform: scale(1.1);
+            z-index: 10;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                "on-background": "#191c1d",
+                "surface-container-high": "#e7e8e9",
+                "surface-container-low": "#f3f4f5",
+                "on-tertiary-fixed": "#0b1f18",
+                "secondary-container": "#ffa91e",
+                "inverse-on-surface": "#f0f1f2",
+                "on-error-container": "#93000a",
+                "surface-dim": "#d9dadb",
+                "on-tertiary": "#ffffff",
+                "surface-container-lowest": "#ffffff",
+                "surface-container-highest": "#e1e3e4",
+                "on-tertiary-container": "#c9dfd4",
+                "on-error": "#ffffff",
+                "secondary-fixed-dim": "#ffb95a",
+                "on-surface-variant": "#404943",
+                "tertiary-fixed": "#d1e8dc",
+                "background": "#f8f9fa",
+                "on-primary": "#ffffff",
+                "on-tertiary-fixed-variant": "#374b42",
+                "on-primary-fixed": "#002114",
+                "secondary": "#845400",
+                "error": "#ba1a1a",
+                "on-primary-fixed-variant": "#0e5138",
+                "primary": "#0f5238",
+                "on-surface": "#191c1d",
+                "primary-container": "#2d6a4f",
+                "surface": "#f8f9fa",
+                "outline-variant": "#bfc9c1",
+                "on-primary-container": "#a8e7c5",
+                "error-container": "#ffdad6",
+                "secondary-fixed": "#ffddb6",
+                "tertiary-container": "#4f645b",
+                "on-secondary": "#ffffff",
+                "surface-container": "#edeeef",
+                "tertiary": "#384c43",
+                "inverse-surface": "#2e3132",
+                "primary-fixed-dim": "#95d4b3",
+                "surface-tint": "#2c694e",
+                "on-secondary-fixed": "#2a1800",
+                "tertiary-fixed-dim": "#b5ccc0",
+                "surface-variant": "#e1e3e4",
+                "on-secondary-container": "#6a4300",
+                "outline": "#707973",
+                "primary-fixed": "#b1f0ce",
+                "inverse-primary": "#95d4b3",
+                "surface-bright": "#f8f9fa",
+                "on-secondary-fixed-variant": "#643f00"
+              },
+              "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+              },
+              "spacing": {
+                "container-padding": "24px",
+                "margin-mobile": "16px",
+                "gutter": "16px",
+                "unit": "8px",
+                "margin-desktop": "40px"
+              },
+              "fontFamily": {
+                "headline-lg": ["IBM Plex Sans Arabic"],
+                "body-lg": ["IBM Plex Sans Arabic"],
+                "headline-lg-mobile": ["IBM Plex Sans Arabic"],
+                "headline-xl": ["IBM Plex Sans Arabic"],
+                "headline-md": ["IBM Plex Sans Arabic"],
+                "caption": ["IBM Plex Sans Arabic"],
+                "label-bold": ["IBM Plex Sans Arabic"],
+                "body-md": ["IBM Plex Sans Arabic"],
+                "label-md": ["IBM Plex Sans Arabic"],
+                "label-sm": ["IBM Plex Sans Arabic"]
+              },
+              "fontSize": {
+                "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                "headline-xl": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "caption": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                "label-bold": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface-container-low border-b border-outline-variant fixed top-0 left-0 right-0 z-50 transition-all duration-200">
+<div class="flex justify-between items-center w-full px-margin-desktop py-4 max-w-full mx-auto rtl">
+<div class="flex items-center gap-8">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">نظام المكتبة الذكية</h1>
+<div class="hidden md:flex items-center gap-6">
+<nav class="flex gap-6">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-label-md text-label-md" href="#">إدارة المكتبة</a>
+<a class="text-on-surface-variant font-medium hover:bg-surface-container-high transition-colors duration-200 font-label-md text-label-md px-2 rounded" href="#">الإحصائيات</a>
+<a class="text-on-surface-variant font-medium hover:bg-surface-container-high transition-colors duration-200 font-label-md text-label-md px-2 rounded" href="#">التقارير</a>
+</nav>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden lg:block group">
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-64 h-10 pr-10 pl-4 rounded-xl bg-surface-container-high border-none focus:ring-2 focus:ring-primary-container text-body-md transition-all" placeholder="البحث في النظام..." type="text"/>
+</div>
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors relative">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">settings</span>
+</button>
+<div class="flex items-center gap-3 pr-4 border-r border-outline-variant mr-2">
+<div class="text-left hidden sm:block">
+<p class="font-label-md text-label-md leading-none text-primary">د. أحمد محمود</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">أمين المكتبة الرئيسي</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional portrait of a middle-aged academic librarian" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfBvLV80dRBW7GF_davYB1B5gpA7Sj65W6EIGxEZ_2UO7FCPDQ1m6gFKB1JPzVUg7Xs_E-2p47Lv9GT8cYSvPUq3M4Aig7Tqu8mmtL9PsgXjK7jN0SFx9CtWZU7v-HHHJVK-y8iZautF0Wy_JsJZcSZsCa9Vu8VOJhSao_150O07vOv_w541ruU1vqBP77QPUDcvqb0DC68P3qoDD2nZGgwJAsq0xENMrwVsaUjLClBgEGNRE7aaBqGA"/>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="flex flex-col h-screen fixed right-0 top-0 pt-24 pb-8 px-4 rtl bg-surface-container-low border-l border-outline-variant w-64 z-40">
+<div class="mb-8 px-4">
+<h2 class="font-headline-md text-headline-md text-primary">لوحة التحكم</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant">أمين المكتبة</p>
+</div>
+<nav class="flex flex-col gap-1 flex-1">
+<a class="nav-item flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container font-bold rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined transition-transform duration-300">book</span>
+<span class="font-label-md text-label-md">الكتب</span>
+</a>
+<a class="nav-item flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined transition-transform duration-300">person</span>
+<span class="font-label-md text-label-md">المؤلفون</span>
+</a>
+<a class="nav-item flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined transition-transform duration-300">category</span>
+<span class="font-label-md text-label-md">الأقسام</span>
+</a>
+<a class="nav-item flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined transition-transform duration-300">shelves</span>
+<span class="font-label-md text-label-md">الرفوف</span>
+</a>
+</nav>
+<div class="mt-auto px-2">
+<button class="shimmer-btn w-full py-4 px-4 bg-secondary-container text-on-secondary-container rounded-full flex items-center justify-center gap-2 font-label-bold text-label-bold hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-secondary-container/20">
+<span class="material-symbols-outlined">add</span>
+                إضافة كتاب جديد
+            </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="mr-64 pt-24 min-h-screen px-margin-desktop pb-margin-desktop">
+<!-- BI Header Stats Row -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter mb-8">
+<div class="animate-fade-in-down delay-100 bg-surface p-6 rounded-xl border border-outline-variant flex flex-col shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+<div class="flex items-center justify-between mb-4">
+<p class="text-on-surface-variant font-label-sm text-label-sm">إجمالي الكتب</p>
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">menu_book</span>
+</div>
+<h3 class="text-primary font-headline-lg text-headline-lg mb-1">12,480</h3>
+<div class="flex items-center gap-1 text-tertiary">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span class="text-caption font-label-bold">12%+ عن الشهر الماضي</span>
+</div>
+</div>
+<div class="animate-fade-in-down delay-200 bg-surface p-6 rounded-xl border border-outline-variant flex flex-col shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+<div class="flex items-center justify-between mb-4">
+<p class="text-on-surface-variant font-label-sm text-label-sm">معدل الإعارة اليومي</p>
+<span class="material-symbols-outlined text-secondary bg-secondary/10 p-2 rounded-lg">speed</span>
+</div>
+<h3 class="text-secondary font-headline-lg text-headline-lg mb-1">1,204</h3>
+<div class="flex items-center gap-1 text-error">
+<span class="material-symbols-outlined text-sm">trending_down</span>
+<span class="text-caption font-label-bold">4%- اليوم</span>
+</div>
+</div>
+<div class="animate-fade-in-down delay-300 bg-surface p-6 rounded-xl border border-outline-variant flex flex-col shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+<div class="flex items-center justify-between mb-4">
+<p class="text-on-surface-variant font-label-sm text-label-sm">الزوار النشطين</p>
+<span class="material-symbols-outlined text-tertiary bg-tertiary/10 p-2 rounded-lg">groups</span>
+</div>
+<h3 class="text-tertiary font-headline-lg text-headline-lg mb-1">2,845</h3>
+<div class="flex items-center gap-1 text-tertiary">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span class="text-caption font-label-bold">18%+ زيادة في الذروة</span>
+</div>
+</div>
+<div class="animate-fade-in-down delay-300 bg-surface p-6 rounded-xl border border-outline-variant flex flex-col shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+<div class="flex items-center justify-between mb-4">
+<p class="text-on-surface-variant font-label-sm text-label-sm">النمو السنوي</p>
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">insights</span>
+</div>
+<h3 class="text-primary font-headline-lg text-headline-lg mb-1">94.2%</h3>
+<div class="flex items-center gap-1 text-tertiary">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+<span class="text-caption font-label-bold">ضمن النطاق المستهدف</span>
+</div>
+</div>
+</section>
+<!-- BI Insights Section: Heatmap & Peak Hours -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-gutter mb-8">
+<!-- Heatmap: Most Demanded Departments -->
+<div class="lg:col-span-2 bg-surface rounded-xl border border-outline-variant p-6 shadow-sm">
+<div class="flex items-center justify-between mb-6">
+<h4 class="font-headline-md text-headline-md text-on-surface">خريطة الأقسام الأكثر طلباً (Heatmap)</h4>
+<div class="flex gap-2">
+<span class="flex items-center gap-1 text-caption font-label-bold text-on-surface-variant">
+<span class="w-3 h-3 bg-primary/20 rounded-sm"></span> منخفض
+                </span>
+<span class="flex items-center gap-1 text-caption font-label-bold text-on-surface-variant">
+<span class="w-3 h-3 bg-primary rounded-sm"></span> مرتفع
+                </span>
+</div>
+</div>
+<div class="grid grid-cols-4 md:grid-cols-6 gap-3">
+<!-- Heatmap Cells representing departments -->
+<div class="heatmap-cell bg-primary h-24 rounded-lg flex flex-col items-center justify-center p-2 text-on-primary text-center">
+<span class="text-label-sm font-bold">التكنولوجيا</span>
+<span class="text-caption opacity-80">98%</span>
+</div>
+<div class="heatmap-cell bg-primary/80 h-24 rounded-lg flex flex-col items-center justify-center p-2 text-on-primary text-center">
+<span class="text-label-sm font-bold">العلوم</span>
+<span class="text-caption opacity-80">82%</span>
+</div>
+<div class="heatmap-cell bg-primary/60 h-24 rounded-lg flex flex-col items-center justify-center p-2 text-on-primary text-center">
+<span class="text-label-sm font-bold">التاريخ</span>
+<span class="text-caption opacity-80">65%</span>
+</div>
+<div class="heatmap-cell bg-primary/90 h-24 rounded-lg flex flex-col items-center justify-center p-2 text-on-primary text-center">
+<span class="text-label-sm font-bold">الأدب</span>
+<span class="text-caption opacity-80">91%</span>
+</div>
+<div class="heatmap-cell bg-primary/40 h-24 rounded-lg flex flex-col items-center justify-center p-2 text-on-surface text-center">
+<span class="text-label-sm font-bold">الفنون</span>
+<span class="text-caption opacity-80">42%</span>
+</div>
+<div class="heatmap-cell bg-primary/20 h-24 rounded-lg flex flex-col items-center justify-center p-2 text-on-surface text-center">
+<span class="text-label-sm font-bold">الفلسفة</span>
+<span class="text-caption opacity-80">15%</span>
+</div>
+<div class="heatmap-cell bg-primary/70 h-24 rounded-lg flex flex-col items-center justify-center p-2 text-on-primary text-center">
+<span class="text-label-sm font-bold">الطب</span>
+<span class="text-caption opacity-80">74%</span>
+</div>
+<div class="heatmap-cell bg-primary/50 h-24 rounded-lg flex flex-col items-center justify-center p-2 text-on-surface text-center">
+<span class="text-label-sm font-bold">اللغات</span>
+<span class="text-caption opacity-80">51%</span>
+</div>
+<div class="heatmap-cell bg-primary/95 h-24 rounded-lg flex flex-col items-center justify-center p-2 text-on-primary text-center">
+<span class="text-label-sm font-bold">الذكاء الاصطناعي</span>
+<span class="text-caption opacity-80">99%</span>
+</div>
+<div class="heatmap-cell bg-primary/30 h-24 rounded-lg flex flex-col items-center justify-center p-2 text-on-surface text-center">
+<span class="text-label-sm font-bold">الجغرافيا</span>
+<span class="text-caption opacity-80">28%</span>
+</div>
+<div class="heatmap-cell bg-primary/85 h-24 rounded-lg flex flex-col items-center justify-center p-2 text-on-primary text-center">
+<span class="text-label-sm font-bold">الاقتصاد</span>
+<span class="text-caption opacity-80">88%</span>
+</div>
+<div class="heatmap-cell bg-primary/45 h-24 rounded-lg flex flex-col items-center justify-center p-2 text-on-surface text-center">
+<span class="text-label-sm font-bold">القانون</span>
+<span class="text-caption opacity-80">48%</span>
+</div>
+</div>
+</div>
+<!-- Peak Hours Chart -->
+<div class="bg-surface rounded-xl border border-outline-variant p-6 shadow-sm">
+<h4 class="font-headline-md text-headline-md text-on-surface mb-6">أوقات الذروة (يومي)</h4>
+<div class="flex items-end justify-between h-48 gap-2 px-2">
+<!-- Simulated Bar Chart -->
+<div class="flex-1 bg-surface-container-high rounded-t-lg relative group cursor-pointer">
+<div class="bar-animate absolute bottom-0 w-full bg-secondary rounded-t-lg" style="--chart-height: 40%; transition: height 1s;"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant">08:00</span>
+</div>
+<div class="flex-1 bg-surface-container-high rounded-t-lg relative group cursor-pointer">
+<div class="bar-animate absolute bottom-0 w-full bg-secondary rounded-t-lg" style="--chart-height: 65%; transition: height 1.2s;"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant">10:00</span>
+</div>
+<div class="flex-1 bg-surface-container-high rounded-t-lg relative group cursor-pointer">
+<div class="bar-animate absolute bottom-0 w-full bg-secondary-fixed-dim rounded-t-lg" style="--chart-height: 95%; transition: height 1.4s;"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant">12:00</span>
+</div>
+<div class="flex-1 bg-surface-container-high rounded-t-lg relative group cursor-pointer">
+<div class="bar-animate absolute bottom-0 w-full bg-secondary rounded-t-lg" style="--chart-height: 80%; transition: height 1.6s;"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant">14:00</span>
+</div>
+<div class="flex-1 bg-surface-container-high rounded-t-lg relative group cursor-pointer">
+<div class="bar-animate absolute bottom-0 w-full bg-secondary rounded-t-lg" style="--chart-height: 50%; transition: height 1.8s;"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant">16:00</span>
+</div>
+<div class="flex-1 bg-surface-container-high rounded-t-lg relative group cursor-pointer">
+<div class="bar-animate absolute bottom-0 w-full bg-secondary/40 rounded-t-lg" style="--chart-height: 25%; transition: height 2s;"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-on-surface-variant">18:00</span>
+</div>
+</div>
+<p class="mt-10 text-center text-caption text-on-surface-variant italic">معدل الإقبال يرتفع بين 11:00ص و 1:00م</p>
+</div>
+</section>
+<!-- Book Management Section -->
+<div class="bg-surface rounded-xl border border-outline-variant overflow-hidden shadow-sm">
+<!-- Toolbar -->
+<div class="p-6 border-b border-outline-variant flex flex-wrap gap-4 items-center justify-between bg-surface-container-lowest">
+<div class="flex items-center gap-4 flex-1 min-w-[300px]">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full h-12 pr-12 pl-4 rounded-full border border-outline-variant focus:border-primary-container focus:ring-2 focus:ring-primary-container bg-surface-container-low transition-all text-body-md" placeholder="البحث بالعنوان، المؤلف، أو الرقم التسلسلي..." type="text"/>
+</div>
+<button class="h-12 px-4 rounded-full border border-outline flex items-center gap-2 font-label-md text-label-md text-primary hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined">filter_list</span>
+                        تصفية
+                    </button>
+</div>
+<div class="flex items-center gap-3">
+<button class="h-12 px-6 rounded-full border border-primary text-primary font-label-md text-label-md flex items-center gap-2 hover:bg-primary/5 transition-all">
+<span class="material-symbols-outlined">upload_file</span>
+                        استيراد من إكسل
+                    </button>
+<button class="shimmer-btn h-12 px-6 rounded-full bg-secondary-container text-on-secondary-container font-label-bold text-label-bold flex items-center gap-2 hover:opacity-90 transition-all shadow-md shadow-secondary-container/10">
+<span class="material-symbols-outlined">add</span>
+                        إضافة كتاب
+                    </button>
+</div>
+</div>
+<!-- Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-right border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant border-b border-outline-variant">
+<th class="px-6 py-4 font-label-bold text-label-bold">الغلاف</th>
+<th class="px-6 py-4 font-label-bold text-label-bold">العنوان</th>
+<th class="px-6 py-4 font-label-bold text-label-bold">المؤلف</th>
+<th class="px-6 py-4 font-label-bold text-label-bold">الفئة</th>
+<th class="px-6 py-4 font-label-bold text-label-bold">الموقع</th>
+<th class="px-6 py-4 font-label-bold text-label-bold text-center">الحالة</th>
+<th class="px-6 py-4 font-label-bold text-label-bold text-center">الإجراءات</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Table Row 1 -->
+<tr class="table-row-hover transition-colors group">
+<td class="px-6 py-4">
+<div class="w-12 h-16 rounded border border-outline-variant overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover" data-alt="A book cover for 'The Art of Arabic Calligraphy'" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgDrRkLiSwKRh1jnACqD17eHbwce4u7ilxvSZn1WzotezaMyIu2Y2R1xQCbCCBnh98M4GkILFeJFwX9GXqynH4DA-mprp-luQ3C5Yz8mtj0hi9cAHOt9N5RM5CDiDdz40LYPfgUviaDkRd5h7t4zOGPVkoI1R4haHZusUQlNky5BxyX2XhOtX2YE_e3jjMOFRyXxoTaOzf91_nk2z-MoA-yXA1UGnQXB-cmCw0dEcC2mVKzLeT2N4dvw"/>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="font-label-bold text-label-bold text-primary">فن الخط العربي</p>
+<p class="text-caption font-caption text-on-surface-variant">ISBN: 978-1234567890</p>
+</td>
+<td class="px-6 py-4 font-body-md text-body-md">د. محمد زكي</td>
+<td class="px-6 py-4 font-body-md text-body-md">الفنون والآداب</td>
+<td class="px-6 py-4">
+<span class="bg-surface-container-high px-2 py-1 rounded text-caption font-label-bold">طابق 2 / رف B-14</span>
+</td>
+<td class="px-6 py-4 text-center">
+<span class="inline-flex items-center gap-1 bg-tertiary-fixed text-on-tertiary-fixed-variant px-3 py-1 rounded-full text-caption font-label-bold">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                    متوفر
+                                </span>
+</td>
+<td class="px-6 py-4 text-center">
+<div class="flex items-center justify-center gap-2">
+<button class="p-2 text-primary hover:bg-primary/10 rounded-full transition-all">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="p-2 text-error hover:bg-error/10 rounded-full transition-all">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Table Row 2 -->
+<tr class="table-row-hover transition-colors group">
+<td class="px-6 py-4">
+<div class="w-12 h-16 rounded border border-outline-variant overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Book cover for 'Advanced Quantum Mechanics'" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3N92QQH7H_9YxNLtqiHfip9UmLs_h9PGG-h6r48pay-PPTWVZQW90NYT_fY1VsqOlqV13WPkTrhmIWfnTVN4wQriq0ENNNJ0Ke5ZImtlLXxiPilOuVg_LRqhYJaYW43uhJERwXFbWSQ_bfRPLQpe7dDJ5T-x0EIq91SsUD1Z45pRlnv_IttrAyUS8gj-GaOLCP0785mRfQpihXj9YS9LRV_pvOgfgPjZQvw_7MqVgNon37Xz_1ir61Q"/>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="font-label-bold text-label-bold text-primary">ميكانيكا الكم المتقدمة</p>
+<p class="text-caption font-caption text-on-surface-variant">ISBN: 978-9876543210</p>
+</td>
+<td class="px-6 py-4 font-body-md text-body-md">أ.د. سارة المنصور</td>
+<td class="px-6 py-4 font-body-md text-body-md">الفيزياء</td>
+<td class="px-6 py-4">
+<span class="bg-surface-container-high px-2 py-1 rounded text-caption font-label-bold">طابق 1 / رف A-03</span>
+</td>
+<td class="px-6 py-4 text-center">
+<span class="inline-flex items-center gap-1 bg-secondary-fixed text-on-secondary-fixed-variant px-3 py-1 rounded-full text-caption font-label-bold">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">hourglass_empty</span>
+                                    معار
+                                </span>
+</td>
+<td class="px-6 py-4 text-center">
+<div class="flex items-center justify-center gap-2">
+<button class="p-2 text-primary hover:bg-primary/10 rounded-full transition-all">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="p-2 text-error hover:bg-error/10 rounded-full transition-all">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Table Row 3 -->
+<tr class="table-row-hover transition-colors group">
+<td class="px-6 py-4">
+<div class="w-12 h-16 rounded border border-outline-variant overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Book cover for 'History of Medieval Cairo'" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMzUJJkgsk5uWCZCEGSmPmaOlDXJ0CzVgpaorv2zt5wwlU01E8j-fA5EJjP-7ZOPmU_NYZH2HVf6_JOiIul7MOo_mCGWjEUc7lFMJRJTyjbO-SFwoV8eUr81eIJYuwOE8AItv5i9FglHUnP5CusXTd6qmfc72WDoVoMMc9ZPrSukbQHgGhVWAqPs2rALtIWBdSnLAoAhuIfW-gmhxfMS0HQ04UBuFsAqmmB3C9GVRB_ovYErv5_cYhDQ"/>
+</div>
+</td>
+<td class="px-6 py-4">
+<p class="font-label-bold text-label-bold text-primary">تاريخ القاهرة المعزية</p>
+<p class="text-caption font-caption text-on-surface-variant">ISBN: 978-4561237895</p>
+</td>
+<td class="px-6 py-4 font-body-md text-body-md">د. خالد الهاشمي</td>
+<td class="px-6 py-4 font-body-md text-body-md">التاريخ الإسلامي</td>
+<td class="px-6 py-4">
+<span class="bg-surface-container-high px-2 py-1 rounded text-caption font-label-bold">طابق 3 / رف C-22</span>
+</td>
+<td class="px-6 py-4 text-center">
+<span class="inline-flex items-center gap-1 bg-tertiary-fixed text-on-tertiary-fixed-variant px-3 py-1 rounded-full text-caption font-label-bold">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                    متوفر
+                                </span>
+</td>
+<td class="px-6 py-4 text-center">
+<div class="flex items-center justify-center gap-2">
+<button class="p-2 text-primary hover:bg-primary/10 rounded-full transition-all">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="p-2 text-error hover:bg-error/10 rounded-full transition-all">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="p-6 bg-surface-container-low flex items-center justify-between border-t border-outline-variant">
+<span class="text-caption font-label-bold text-on-surface-variant">عرض 1-10 من أصل 12,480 كتاب</span>
+<div class="flex items-center gap-1">
+<button class="w-10 h-10 rounded-xl flex items-center justify-center border border-outline-variant hover:bg-surface-container-high transition-all text-on-surface-variant">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+<button class="w-10 h-10 rounded-xl flex items-center justify-center bg-primary text-on-primary font-label-bold text-label-bold">1</button>
+<button class="w-10 h-10 rounded-xl flex items-center justify-center hover:bg-surface-container-high transition-all font-label-bold text-label-bold text-on-surface-variant">2</button>
+<button class="w-10 h-10 rounded-xl flex items-center justify-center hover:bg-surface-container-high transition-all font-label-bold text-label-bold text-on-surface-variant">3</button>
+<span class="px-2 text-on-surface-variant">...</span>
+<button class="w-10 h-10 rounded-xl flex items-center justify-center hover:bg-surface-container-high transition-all font-label-bold text-label-bold text-on-surface-variant">1,248</button>
+<button class="w-10 h-10 rounded-xl flex items-center justify-center border border-outline-variant hover:bg-surface-container-high transition-all text-on-surface-variant">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest border-t border-outline-variant mr-64">
+<div class="flex justify-between items-center w-full py-4 px-margin-desktop mt-auto rtl">
+<div class="flex items-center gap-6">
+<p class="font-label-bold text-label-bold text-primary">نظام المكتبة الذكية</p>
+<p class="font-caption text-caption text-on-surface opacity-80">© 2024 نظام المكتبة الذكية - جميع الحقوق محفوظة</p>
+</div>
+<div class="flex gap-6">
+<a class="font-caption text-caption text-secondary hover:text-primary hover:underline transition-all" href="#">المساعدة</a>
+<a class="font-caption text-caption text-secondary hover:text-primary hover:underline transition-all" href="#">سياسة الخصوصية</a>
+<a class="font-caption text-caption text-secondary hover:text-primary hover:underline transition-all" href="#">اتصل بنا</a>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions and simple state management
+        document.querySelectorAll('button, a').forEach(el => {
+            el.addEventListener('mousedown', () => {
+                el.style.transform = 'scale(0.98)';
+            });
+            el.addEventListener('mouseup', () => {
+                el.style.transform = '';
+            });
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = '';
+            });
+        });
+
+        // Search highlight effect
+        const searchInputs = document.querySelectorAll('input[type="text"]');
+        searchInputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('ring-2', 'ring-primary-container', 'border-transparent');
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.classList.remove('ring-2', 'ring-primary-container', 'border-transparent');
+            });
+        });
+
+        // Simple Chart Animation Re-trigger (simulated for demo)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.querySelectorAll('.bar-animate').forEach(bar => {
+                        const h = bar.style.getPropertyValue('--chart-height');
+                        bar.style.height = '0';
+                        setTimeout(() => bar.style.height = h, 50);
+                    });
+                }
+            });
+        }, { threshold: 0.1 });
+
+        const chartSection = document.querySelector('.lg\\:col-span-1');
+        if(chartSection) observer.observe(chartSection);
+    </script>
+</body></html>

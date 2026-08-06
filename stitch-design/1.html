@@ -1,0 +1,320 @@
+<!DOCTYPE html><html dir="rtl" lang="ar"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>نظام المكتبة الذكية - الواجهة الرئيسية</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#191c1d",
+                        "surface-container-high": "#e7e8e9",
+                        "surface-container-low": "#f3f4f5",
+                        "on-tertiary-fixed": "#0b1f18",
+                        "secondary-container": "#ffa91e",
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-error-container": "#93000a",
+                        "surface-dim": "#d9dadb",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-tertiary-container": "#c9dfd4",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#ffb95a",
+                        "on-surface-variant": "#404943",
+                        "tertiary-fixed": "#d1e8dc",
+                        "background": "#f8f9fa",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#374b42",
+                        "on-primary-fixed": "#002114",
+                        "secondary": "#845400",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#0e5138",
+                        "primary": "#0f5238",
+                        "on-surface": "#191c1d",
+                        "primary-container": "#2d6a4f",
+                        "surface": "#f8f9fa",
+                        "outline-variant": "#bfc9c1",
+                        "on-primary-container": "#a8e7c5",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed": "#ffddb6",
+                        "tertiary-container": "#4f645b",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#edeeef",
+                        "tertiary": "#384c43",
+                        "inverse-surface": "#2e3132",
+                        "primary-fixed-dim": "#95d4b3",
+                        "surface-tint": "#2c694e",
+                        "on-secondary-fixed": "#2a1800",
+                        "tertiary-fixed-dim": "#b5ccc0",
+                        "surface-variant": "#e1e3e4",
+                        "on-secondary-container": "#6a4300",
+                        "outline": "#707973",
+                        "primary-fixed": "#b1f0ce",
+                        "inverse-primary": "#95d4b3",
+                        "surface-bright": "#f8f9fa",
+                        "on-secondary-fixed-variant": "#643f00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "base": "8px",
+                        "container-max": "1280px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["IBM Plex Sans Arabic"],
+                        "body-lg": ["IBM Plex Sans Arabic"],
+                        "headline-lg-mobile": ["IBM Plex Sans Arabic"],
+                        "headline-xl": ["IBM Plex Sans Arabic"],
+                        "headline-md": ["IBM Plex Sans Arabic"],
+                        "caption": ["IBM Plex Sans Arabic"],
+                        "label-bold": ["IBM Plex Sans Arabic"],
+                        "body-md": ["IBM Plex Sans Arabic"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "headline-xl": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "caption": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                        "label-bold": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            background-color: #f8f9fa;
+            color: #191c1d;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Entrance Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+
+        /* Hover Effects */
+        .book-card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .book-card-hover:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .category-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .category-hover:hover {
+            transform: scale(1.05);
+        }
+        .category-hover:active {
+            transform: scale(0.98);
+        }
+
+        /* Pulsing Effect */
+        @keyframes pulse-subtle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.85; transform: scale(1.05); }
+        }
+        .badge-pulse {
+            animation: pulse-subtle 2s infinite ease-in-out;
+        }
+
+        /* Smooth Transitions for Interactive Elements */
+        button, input, a, .group {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .parchment-bg {
+            background: linear-gradient(to bottom right, #ffffff, #fdfbf7);
+            border: 1px solid #bfc9c1;
+        }
+    </style>
+</head>
+<body class="bg-surface overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="bg-surface-container-lowest border-b border-outline-variant docked full-width top-0 z-50 sticky">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-full mx-auto rtl">
+<!-- Brand Logo -->
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">book_5</span>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">نظام المكتبة الذكية</h1>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors duration-200">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors duration-200">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="settings">settings</span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant mx-2"></div>
+<a href="{{DATA:SCREEN:SCREEN_16}}" class="px-6 py-2 bg-primary text-on-primary rounded-xl font-label-bold text-label-bold active:scale-95 hover:bg-primary-container transition-all flex items-center justify-center">تسجيل الدخول</a>
+</div>
+</div>
+</header>
+<main class="min-h-screen px-margin-desktop py-12 flex flex-col items-center">
+<!-- Hero Section & Search -->
+<div class="w-full max-w-4xl text-center mb-16">
+<h2 class="font-headline-xl text-headline-xl text-primary mb-8 tracking-tight animate-fade-in-up opacity-0">ابحث في كنوز المعرفة</h2>
+<a href="{{DATA:SCREEN:SCREEN_22}}" class="block w-full"></a><div class="relative w-full group animate-fade-in-up opacity-0 delay-100">
+<div class="absolute inset-y-0 right-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline text-2xl transition-colors group-focus-within:text-primary" data-icon="search">search</span>
+</div>
+<input class="w-full h-16 pr-14 pl-6 rounded-xl border-2 border-outline-variant focus:border-primary focus:ring-4 focus:ring-primary/10 bg-white text-body-lg font-body-lg shadow-sm transition-all outline-none" placeholder="ابحث عن كتاب أو مؤلف" type="text">
+</div>
+<!-- Search Filters -->
+<div class="flex flex-wrap justify-center gap-3 mt-6 animate-fade-in-up opacity-0 delay-200">
+<button class="px-5 py-2.5 rounded-full border border-outline-variant text-on-surface-variant bg-white font-label-bold text-label-bold hover:bg-secondary-container hover:text-on-secondary-container hover:border-transparent transition-all">اسم الكتاب</button>
+<button class="px-5 py-2.5 rounded-full border border-outline-variant text-on-surface-variant bg-white font-label-bold text-label-bold hover:bg-secondary-container hover:text-on-secondary-container hover:border-transparent transition-all">اسم المؤلف</button>
+<button class="px-5 py-2.5 rounded-full border border-outline-variant text-on-surface-variant bg-white font-label-bold text-label-bold hover:bg-secondary-container hover:text-on-secondary-container hover:border-transparent transition-all">التصنيف</button>
+<button class="px-5 py-2.5 rounded-full border border-outline-variant text-on-surface-variant bg-white font-label-bold text-label-bold hover:bg-secondary-container hover:text-on-secondary-container hover:border-transparent transition-all">الكلمات المفتاحية</button>
+</div>
+</div>
+<!-- Category Bento Grid -->
+<section class="w-full mb-20 animate-fade-in-up opacity-0 delay-300">
+<div class="flex items-center gap-3 mb-8 border-r-4 border-primary pr-4">
+<h3 class="font-headline-md text-headline-md text-primary">الأقسام العلمية</h3>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+<!-- Fiqh -->
+<a class="group category-hover parchment-bg p-6 rounded-xl flex flex-col items-center gap-4 text-center hover:bg-primary transition-all duration-300" href="#">
+<div class="w-16 h-16 rounded-full bg-primary-fixed flex items-center justify-center group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-white text-3xl" data-icon="gavel">gavel</span>
+</div>
+<span class="font-label-bold text-on-surface group-hover:text-white">الفقه</span>
+</a>
+<!-- Hadith -->
+<a class="group category-hover parchment-bg p-6 rounded-xl flex flex-col items-center gap-4 text-center hover:bg-primary transition-all duration-300" href="#">
+<div class="w-16 h-16 rounded-full bg-primary-fixed flex items-center justify-center group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-white text-3xl" data-icon="menu_book">menu_book</span>
+</div>
+<span class="font-label-bold text-on-surface group-hover:text-white">الحديث</span>
+</a>
+<!-- Tafsir -->
+<a class="group category-hover parchment-bg p-6 rounded-xl flex flex-col items-center gap-4 text-center hover:bg-primary transition-all duration-300" href="#">
+<div class="w-16 h-16 rounded-full bg-primary-fixed flex items-center justify-center group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-white text-3xl" data-icon="auto_stories">auto_stories</span>
+</div>
+<span class="font-label-bold text-on-surface group-hover:text-white">التفسير</span>
+</a>
+<!-- Aqidah -->
+<a class="group category-hover parchment-bg p-6 rounded-xl flex flex-col items-center gap-4 text-center hover:bg-primary transition-all duration-300" href="#">
+<div class="w-16 h-16 rounded-full bg-primary-fixed flex items-center justify-center group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-white text-3xl" data-icon="star">star</span>
+</div>
+<span class="font-label-bold text-on-surface group-hover:text-white">العقيدة</span>
+</a>
+<!-- Arabic -->
+<a class="group category-hover parchment-bg p-6 rounded-xl flex flex-col items-center gap-4 text-center hover:bg-primary transition-all duration-300" href="#">
+<div class="w-16 h-16 rounded-full bg-primary-fixed flex items-center justify-center group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-white text-3xl" data-icon="translate">translate</span>
+</div>
+<span class="font-label-bold text-on-surface group-hover:text-white">اللغة العربية</span>
+</a>
+<!-- History -->
+<a class="group category-hover parchment-bg p-6 rounded-xl flex flex-col items-center gap-4 text-center hover:bg-primary transition-all duration-300" href="#">
+<div class="w-16 h-16 rounded-full bg-primary-fixed flex items-center justify-center group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-white text-3xl" data-icon="history_edu">history_edu</span>
+</div>
+<span class="font-label-bold text-on-surface group-hover:text-white">التاريخ</span>
+</a>
+</div>
+</section>
+<div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-12 animate-fade-in-up opacity-0 delay-400">
+<!-- Popular Books Section -->
+<div class="lg:col-span-8">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md text-primary">الكتب الأكثر طلباً</h3>
+<a class="text-primary font-label-bold hover:underline transition-all" href="{{DATA:SCREEN:SCREEN_22}}">عرض الكل</a>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+<!-- Book 1 -->
+<div class="book-card-hover group cursor-pointer"><a href="{{DATA:SCREEN:SCREEN_3}}" class="block h-full w-full"><div class="aspect-[3/4] rounded-xl shadow-sm mb-3 overflow-hidden bg-surface-container-high relative"><img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Book Cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCl6h1XVgP0dFXA-b4-Xk_iVEpDqBPGsxqPUC1FCjcNcX_LVNasihV3SCVmb1Czprc_5X2xgbe3IQTZz3YamKJt90-B1tybQlr-qAfz0Ou8ay8xPfuBoDKCQbzlDV07QvYyFtOzfLOTFNGRVUE5ws5Tqz_k0v9OFLPCBJzzwR-FEwNtaIj3K6kPYJDefxTF5n9iayssXQgjvjRyANHj557k52CWTtbGjw7f4vWzsFU0VeWSr9-ngu9sNQ"><div class="absolute top-2 right-2 bg-primary text-white px-2 py-1 rounded text-xs font-label-bold badge-pulse">متوفر</div></div><h4 class="font-label-bold text-on-surface line-clamp-1 group-hover:text-primary transition-colors">فتح الباري</h4><p class="font-caption text-on-surface-variant">ابن حجر العسقلاني</p></a></div>
+<!-- Book 2 -->
+<div class="book-card-hover group cursor-pointer"><a href="{{DATA:SCREEN:SCREEN_3}}" class="block h-full w-full"><div class="aspect-[3/4] rounded-xl shadow-sm mb-3 overflow-hidden bg-surface-container-high relative"><img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Book Cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCl6h1XVgP0dFXA-b4-Xk_iVEpDqBPGsxqPUC1FCjcNcX_LVNasihV3SCVmb1Czprc_5X2xgbe3IQTZz3YamKJt90-B1tybQlr-qAfz0Ou8ay8xPfuBoDKCQbzlDV07QvYyFtOzfLOTFNGRVUE5ws5Tqz_k0v9OFLPCBJzzwR-FEwNtaIj3K6kPYJDefxTF5n9iayssXQgjvjRyANHj557k52CWTtbGjw7f4vWzsFU0VeWSr9-ngu9sNQ"><div class="absolute top-2 right-2 bg-primary text-white px-2 py-1 rounded text-xs font-label-bold badge-pulse">متوفر</div></div><h4 class="font-label-bold text-on-surface line-clamp-1 group-hover:text-primary transition-colors">فتح الباري</h4><p class="font-caption text-on-surface-variant">ابن حجر العسقلاني</p></a></div>
+<!-- Book 3 -->
+<div class="book-card-hover group cursor-pointer"><a href="{{DATA:SCREEN:SCREEN_3}}" class="block h-full w-full"><div class="aspect-[3/4] rounded-xl shadow-sm mb-3 overflow-hidden bg-surface-container-high relative"><img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Book Cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCl6h1XVgP0dFXA-b4-Xk_iVEpDqBPGsxqPUC1FCjcNcX_LVNasihV3SCVmb1Czprc_5X2xgbe3IQTZz3YamKJt90-B1tybQlr-qAfz0Ou8ay8xPfuBoDKCQbzlDV07QvYyFtOzfLOTFNGRVUE5ws5Tqz_k0v9OFLPCBJzzwR-FEwNtaIj3K6kPYJDefxTF5n9iayssXQgjvjRyANHj557k52CWTtbGjw7f4vWzsFU0VeWSr9-ngu9sNQ"><div class="absolute top-2 right-2 bg-primary text-white px-2 py-1 rounded text-xs font-label-bold badge-pulse">متوفر</div></div><h4 class="font-label-bold text-on-surface line-clamp-1 group-hover:text-primary transition-colors">فتح الباري</h4><p class="font-caption text-on-surface-variant">ابن حجر العسقلاني</p></a></div>
+<!-- Book 4 -->
+<div class="book-card-hover group cursor-pointer"><a href="{{DATA:SCREEN:SCREEN_3}}" class="block h-full w-full"><div class="aspect-[3/4] rounded-xl shadow-sm mb-3 overflow-hidden bg-surface-container-high relative"><img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Book Cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCl6h1XVgP0dFXA-b4-Xk_iVEpDqBPGsxqPUC1FCjcNcX_LVNasihV3SCVmb1Czprc_5X2xgbe3IQTZz3YamKJt90-B1tybQlr-qAfz0Ou8ay8xPfuBoDKCQbzlDV07QvYyFtOzfLOTFNGRVUE5ws5Tqz_k0v9OFLPCBJzzwR-FEwNtaIj3K6kPYJDefxTF5n9iayssXQgjvjRyANHj557k52CWTtbGjw7f4vWzsFU0VeWSr9-ngu9sNQ"><div class="absolute top-2 right-2 bg-primary text-white px-2 py-1 rounded text-xs font-label-bold badge-pulse">متوفر</div></div><h4 class="font-label-bold text-on-surface line-clamp-1 group-hover:text-primary transition-colors">فتح الباري</h4><p class="font-caption text-on-surface-variant">ابن حجر العسقلاني</p></a></div>
+</div>
+</div>
+<!-- Recently Searched Section -->
+<div class="lg:col-span-4 bg-surface-container-low rounded-xl p-6 h-fit border border-outline-variant">
+<div class="flex items-center gap-2 mb-6 text-primary">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<h3 class="font-headline-md text-headline-md">التي بحثت عنها مؤخراً</h3>
+</div>
+<ul class="space-y-4">
+<li class="flex items-center gap-4 p-3 hover:bg-surface-container-high rounded-xl transition-all cursor-pointer group"><a href="{{DATA:SCREEN:SCREEN_3}}" class="flex items-center gap-4 w-full"><div class="w-12 h-16 rounded-lg bg-outline-variant flex-shrink-0 overflow-hidden shadow-sm"><img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtQJ2Ix8ZnJ9x3w0Bj0Gd2W5TyEDxgkpG23g8r04EKtNBVthKBVIhCzoGJ_tPJ46f5r07ZdHHl50zJsoJ27MckwhiBm1NaKiRlS82NuBCwW3n2roq25mktdI0_O5Q7UsbdS4T5_b2Xr1pi5cZYaEmWyP2LnyorZauxn4Zpeafluw9fkeSxQ278iXYYPOraEbbU2cu4vAZSH78a19L-H4acISxfNMg5TbK4fWWd-_9wSLZrBcRYz1KovQ"></div><div class="flex-grow"><p class="font-label-bold text-on-surface group-hover:text-primary transition-colors">زاد المعاد</p><p class="font-caption text-on-surface-variant">ابن القيم</p></div><span class="material-symbols-outlined text-outline-variant group-hover:text-primary transform group-hover:-translate-x-1 transition-all" data-icon="chevron_left">chevron_left</span></a></li>
+<li class="flex items-center gap-4 p-3 hover:bg-surface-container-high rounded-xl transition-all cursor-pointer group border-t border-outline-variant pt-4"><a href="{{DATA:SCREEN:SCREEN_3}}" class="flex items-center gap-4 w-full"><div class="w-12 h-16 rounded-lg bg-outline-variant flex-shrink-0 overflow-hidden shadow-sm"><img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtQJ2Ix8ZnJ9x3w0Bj0Gd2W5TyEDxgkpG23g8r04EKtNBVthKBVIhCzoGJ_tPJ46f5r07ZdHHl50zJsoJ27MckwhiBm1NaKiRlS82NuBCwW3n2roq25mktdI0_O5Q7UsbdS4T5_b2Xr1pi5cZYaEmWyP2LnyorZauxn4Zpeafluw9fkeSxQ278iXYYPOraEbbU2cu4vAZSH78a19L-H4acISxfNMg5TbK4fWWd-_9wSLZrBcRYz1KovQ"></div><div class="flex-grow"><p class="font-label-bold text-on-surface group-hover:text-primary transition-colors">زاد المعاد</p><p class="font-caption text-on-surface-variant">ابن القيم</p></div><span class="material-symbols-outlined text-outline-variant group-hover:text-primary transform group-hover:-translate-x-1 transition-all" data-icon="chevron_left">chevron_left</span></a></li>
+<li class="flex items-center gap-4 p-3 hover:bg-surface-container-high rounded-xl transition-all cursor-pointer group border-t border-outline-variant pt-4"><a href="{{DATA:SCREEN:SCREEN_3}}" class="flex items-center gap-4 w-full"><div class="w-12 h-16 rounded-lg bg-outline-variant flex-shrink-0 overflow-hidden shadow-sm"><img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtQJ2Ix8ZnJ9x3w0Bj0Gd2W5TyEDxgkpG23g8r04EKtNBVthKBVIhCzoGJ_tPJ46f5r07ZdHHl50zJsoJ27MckwhiBm1NaKiRlS82NuBCwW3n2roq25mktdI0_O5Q7UsbdS4T5_b2Xr1pi5cZYaEmWyP2LnyorZauxn4Zpeafluw9fkeSxQ278iXYYPOraEbbU2cu4vAZSH78a19L-H4acISxfNMg5TbK4fWWd-_9wSLZrBcRYz1KovQ"></div><div class="flex-grow"><p class="font-label-bold text-on-surface group-hover:text-primary transition-colors">زاد المعاد</p><p class="font-caption text-on-surface-variant">ابن القيم</p></div><span class="material-symbols-outlined text-outline-variant group-hover:text-primary transform group-hover:-translate-x-1 transition-all" data-icon="chevron_left">chevron_left</span></a></li>
+</ul>
+<button class="w-full mt-6 py-3 border-2 border-dashed border-outline-variant text-on-surface-variant rounded-xl font-label-bold hover:bg-surface-container-high hover:border-solid hover:text-error transition-all">
+                مسح السجل
+            </button>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest full-width mt-20">
+<div class="flex justify-between items-center w-full py-8 px-margin-desktop rtl">
+<div class="flex flex-col gap-2">
+<span class="font-label-bold text-label-bold text-primary">نظام المكتبة الذكية</span>
+<p class="font-caption text-on-surface opacity-80">© 2024 نظام المكتبة الذكية - جميع الحقوق محفوظة</p>
+</div>
+<div class="flex gap-8">
+<a class="font-caption text-secondary hover:text-primary transition-all hover:underline" href="#">المساعدة</a>
+<a class="font-caption text-secondary hover:text-primary transition-all hover:underline" href="#">سياسة الخصوصية</a>
+<a class="font-caption text-secondary hover:text-primary transition-all hover:underline" href="#">اتصل بنا</a>
+</div>
+</div>
+</footer>
+<script>
+    // Enhanced micro-interaction for the search bar
+    const searchInput = document.querySelector('input[type="text"]');
+    const searchWrapper = searchInput.parentElement;
+    
+    searchInput.addEventListener('focus', () => {
+        searchWrapper.style.transform = 'scale(1.02)';
+    });
+    searchInput.addEventListener('blur', () => {
+        searchWrapper.style.transform = 'scale(1)';
+    });
+</script>
+
+
+</body></html>

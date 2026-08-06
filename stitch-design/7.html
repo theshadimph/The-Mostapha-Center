@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600;700&amp;family=IBM+Plex+Sans+Arabic:wght@300;400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'IBM Plex Sans Arabic', 'IBM Plex Sans', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(15, 82, 56, 0.1);
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #0f5238 0%, #2d6a4f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#ffa91e",
+                        "outline-variant": "#bfc9c1",
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "on-background": "#191c1d",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f3f4f5",
+                        "surface": "#f8f9fa",
+                        "on-primary-fixed": "#002114",
+                        "error": "#ba1a1a",
+                        "secondary-fixed": "#ffddb6",
+                        "on-secondary-fixed": "#2a1800",
+                        "tertiary-fixed": "#d1e8dc",
+                        "surface-bright": "#f8f9fa",
+                        "inverse-surface": "#2e3132",
+                        "secondary-fixed-dim": "#ffb95a",
+                        "tertiary-fixed-dim": "#b5ccc0",
+                        "on-tertiary-container": "#c9dfd4",
+                        "on-secondary-container": "#6a4300",
+                        "tertiary": "#384c43",
+                        "surface-container-high": "#e7e8e9",
+                        "primary": "#0f5238",
+                        "surface-variant": "#e1e3e4",
+                        "on-primary-fixed-variant": "#0e5138",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#4f645b",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#edeeef",
+                        "primary-fixed-dim": "#95d4b3",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-tertiary-fixed-variant": "#374b42",
+                        "secondary": "#845400",
+                        "primary-container": "#2d6a4f",
+                        "primary-fixed": "#b1f0ce",
+                        "inverse-primary": "#95d4b3",
+                        "on-surface": "#191c1d",
+                        "outline": "#707973",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed-variant": "#643f00",
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-tertiary-fixed": "#0b1f18",
+                        "surface-tint": "#2c694e",
+                        "surface-dim": "#d9dadb",
+                        "on-surface-variant": "#404943",
+                        "background": "#f8f9fa",
+                        "on-primary-container": "#a8e7c5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "base": "8px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px"
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "caption": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                        "headline-xl": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-bold": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface-container-low docked full-width top-0 border-b border-outline-variant dark:border-outline z-50 fixed">
+<div class="flex justify-between items-center w-full px-margin-desktop py-4 max-w-full mx-auto rtl">
+<div class="flex items-center gap-6">
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary">نظام المكتبة الذكية</h1>
+<nav class="hidden md:flex gap-6">
+<a class="text-on-surface-variant font-medium hover:bg-surface-container-high transition-colors duration-200 px-3 py-1 rounded" href="#">الرئيسية</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1" href="#">البحث</a>
+<a class="text-on-surface-variant font-medium hover:bg-surface-container-high transition-colors duration-200 px-3 py-1 rounded" href="#">المؤلفون</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="bg-surface-container-high border-none rounded-full pr-10 pl-4 py-2 focus:ring-2 focus:ring-primary w-64 text-body-md transition-all" placeholder="ابحث عن كتاب..." type="text"/>
+</div>
+<div class="flex gap-2">
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors duration-200">
+<span class="material-symbols-outlined text-primary" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors duration-200">
+<span class="material-symbols-outlined text-primary" data-icon="settings">settings</span>
+</button>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-full font-bold text-body-md hover:opacity-90 active:scale-95 transition-all">
+                        تسجيل الدخول
+                    </button>
+</div>
+</div>
+</div>
+</header>
+<!-- SideNavBar (Suppressed for focused Search Results screen per "The Destination Rule") -->
+<main class="flex-grow pt-28 pb-16 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full relative">
+<!-- Background Atmospheric Element -->
+<div class="absolute top-40 left-0 w-96 h-96 bg-primary opacity-5 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute bottom-20 right-0 w-80 h-80 bg-secondary-container opacity-5 rounded-full blur-3xl pointer-events-none"></div>
+<!-- Empty State Hero Section -->
+<section class="flex flex-col items-center text-center mb-20 animate-fade-in">
+<div class="relative mb-12">
+<!-- Floating Decorative Books -->
+<div class="absolute -top-10 -right-20 animate-float opacity-80" style="animation-delay: 1s;">
+<span class="material-symbols-outlined text-primary text-[80px] opacity-20" data-icon="auto_stories">auto_stories</span>
+</div>
+<div class="absolute -bottom-10 -left-20 animate-float opacity-80">
+<span class="material-symbols-outlined text-secondary text-[60px] opacity-20" data-icon="menu_book">menu_book</span>
+</div>
+<div class="w-64 h-64 md:w-80 md:h-80 mx-auto relative group">
+<div class="absolute inset-0 bg-primary-fixed-dim rounded-full opacity-20 group-hover:scale-110 transition-transform duration-700"></div>
+<div class="absolute inset-4 border-2 border-dashed border-primary rounded-full animate-[spin_20s_linear_infinite]"></div>
+<div class="relative h-full w-full flex items-center justify-center">
+<span class="material-symbols-outlined text-[120px] text-primary" data-icon="search_off">search_off</span>
+</div>
+</div>
+</div>
+<h2 class="font-headline-xl text-headline-xl mb-4 gradient-text">لم نجد ما تبحث عنه بالضبط</h2>
+<p class="text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-10">
+                يبدو أن كتابك يتوارى بين الرفوف! بحثنا في كل الزوايا ولم نعثر على نتيجة مطابقة لـ <span class="font-bold text-primary italic">"رحلة في أعماق البحار"</span>. لا تقلق، قد تكون هذه بداية لرحلة اكتشاف جديدة.
+            </p>
+<div class="flex flex-wrap justify-center gap-4">
+<button class="bg-primary text-on-primary px-8 py-4 rounded-full font-bold text-body-lg flex items-center gap-2 hover:shadow-lg hover:-translate-y-1 active:translate-y-0 transition-all">
+<span class="material-symbols-outlined" data-icon="add_shopping_cart">add_shopping_cart</span>
+                    طلب توفير كتاب
+                </button>
+<button class="bg-surface border-2 border-outline-variant text-on-surface px-8 py-4 rounded-full font-bold text-body-lg flex items-center gap-2 hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+                    العودة للرئيسية
+                </button>
+</div>
+</section>
+<!-- Suggested Alternatives (Bento Grid) -->
+<section class="mb-20">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h3 class="font-headline-md text-headline-md text-primary">قد ينال إعجابك</h3>
+<p class="text-body-md text-on-surface-variant">اقتراحات مختارة بناءً على اهتمامات القراء</p>
+</div>
+<button class="text-secondary font-bold hover:underline flex items-center gap-1">
+                    تصفح المزيد <span class="material-symbols-outlined text-[18px]" data-icon="arrow_back">arrow_back</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<!-- Suggestion Card 1 -->
+<div class="glass-card rounded-xl overflow-hidden group hover:shadow-xl transition-all duration-300 flex flex-col border-t-4 border-primary">
+<div class="h-64 relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A premium high-quality book cover for a marine biology encyclopedia featuring a deep emerald green ocean background with golden illustrations of marine life, high contrast, elegant academic style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBp7TP-w8CnY7v1YGPah-7lMCfxgKCnkJ2NjA6-9G2YFih8wy-6XO0GpTWu_yVtQCzP5kBnoi-GpZ37N3CtIzfVkTAO_5CujuAr_blRZMGxtUEuCu_B895qE6QQfW2yqSagaFRsnNV3cjgRU0YNXdwic4pzimCaF_p8jC8F__RQuXVXzJtm6rgKWw9mCn-669a7egmpvYgurjQsDSMpshGsXsjRKwqGLqAaUZHzdxSQqq3AHDQIrMXp_w"/>
+<div class="absolute top-3 right-3 bg-secondary text-on-secondary px-3 py-1 rounded-full text-caption font-bold">علم البحار</div>
+</div>
+<div class="p-6">
+<h4 class="font-headline-md text-[18px] mb-2 group-hover:text-primary transition-colors">موسوعة المحيطات</h4>
+<p class="text-caption text-on-surface-variant mb-4 line-clamp-2 italic">رحلة شاملة في تاريخ وعلم الكائنات المائية وتطور البحار.</p>
+<div class="flex justify-between items-center mt-auto">
+<span class="text-primary font-bold">د. كمال البحر</span>
+<button class="p-2 rounded-full bg-primary-container text-on-primary-container hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="bookmark">bookmark</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Suggestion Card 2 -->
+<div class="glass-card rounded-xl overflow-hidden group hover:shadow-xl transition-all duration-300 flex flex-col border-t-4 border-secondary-container">
+<div class="h-64 relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A vintage style book cover for an adventure novel titled 'The Hidden Island', featuring warm amber tones, mysterious mapping sketches, and detailed emerald foliage accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1i1WiDni6tjpp-kgV4FfDSzMw_62Q3YruofxnEl-YIkxVOKQ64xbc_cc28aKdgzNl9ZhWONHTKO1AoX7dDnMHahgm062n-wEJGtT0dVPD0ei4CJKYXhBUyd9pBxQ9buCGs5yYbikAPuym5dsdgc66tQKozDKwHIsYh0PN_7WpQrhmESYqyJuKjbzk_6TGrjtdJ4DgP6y43gVxiH5SceFoHUfdOIvDkL8UZbZsLeBrVNFBSSnDaeiThA"/>
+<div class="absolute top-3 right-3 bg-primary text-on-primary px-3 py-1 rounded-full text-caption font-bold">مغامرة</div>
+</div>
+<div class="p-6">
+<h4 class="font-headline-md text-[18px] mb-2 group-hover:text-primary transition-colors">الجزيرة المفقودة</h4>
+<p class="text-caption text-on-surface-variant mb-4 line-clamp-2">قصة مشوقة عن رحالة ضل طريقه ليجد عالماً لم يره أحد من قبل.</p>
+<div class="flex justify-between items-center mt-auto">
+<span class="text-primary font-bold">أحمد الروائي</span>
+<button class="p-2 rounded-full bg-primary-container text-on-primary-container hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="bookmark">bookmark</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Suggestion Card 3 -->
+<div class="glass-card rounded-xl overflow-hidden group hover:shadow-xl transition-all duration-300 flex flex-col border-t-4 border-primary">
+<div class="h-64 relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A modern minimalist technology book cover about future navigation systems, featuring sleek emerald green geometric grids on a crisp white background with golden focal points." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtivn8djVNmxtHqCuyaVWZCY04s8eXvHwB7H3V82cXIIoSlnPBgjFrYbY7i2-K8qc919JyrcPl9ZYzgFM2cL32aV3NdoE0jvhzQgIx0Pl-NqNVoKzVgGCC__031tld2oOKAOPKMVht0K6cDT4_C67fMWbp8xssiJgWnELZH39yEFPPcSj9193KjKOQF3K8S2ywtiVYuTrgfN4Xc8E0uKXJUnOB7unwSGwMBhWeit7R4hjN-u4RReu6EA"/>
+<div class="absolute top-3 right-3 bg-secondary text-on-secondary px-3 py-1 rounded-full text-caption font-bold">تقنية</div>
+</div>
+<div class="p-6">
+<h4 class="font-headline-md text-[18px] mb-2 group-hover:text-primary transition-colors">ملاحة المستقبل</h4>
+<p class="text-caption text-on-surface-variant mb-4 line-clamp-2">كيف غيرت التكنولوجيا طرقنا في استكشاف البحار واليابسة.</p>
+<div class="flex justify-between items-center mt-auto">
+<span class="text-primary font-bold">م. سارة المهندس</span>
+<button class="p-2 rounded-full bg-primary-container text-on-primary-container hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="bookmark">bookmark</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Suggestion Card 4 -->
+<div class="glass-card rounded-xl overflow-hidden group hover:shadow-xl transition-all duration-300 flex flex-col border-t-4 border-secondary-container">
+<div class="h-64 relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="An atmospheric photography book cover featuring deep blue and emerald green underwater coral reefs, sunlight rays piercing through the water, cinematic high-contrast lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVgZR-js1JE80Y72ypt3_qzzohCAxdXACaHtfe0i4YWg_cWtTVUYIZBsy6sVZi740z3A19TakYSdj33AikI_bTedh1qc5d6LIlTcwmo_IXq4XVtPQ-T7qNQyLV2omyLJ3Ehu5YYyq0iw40_vVnoc5jpn10Mv1cwB1e4HQ0zZNEZ55C7Io_SRkY6NGF9KW7Apqq6GadRAuwX1BCurDivjtjdsvt_slt7s9z3wf5nU2N8IFjiWSMsIyRyA"/>
+<div class="absolute top-3 right-3 bg-primary text-on-primary px-3 py-1 rounded-full text-caption font-bold">علوم</div>
+</div>
+<div class="p-6">
+<h4 class="font-headline-md text-[18px] mb-2 group-hover:text-primary transition-colors">أسرار الشعاب</h4>
+<p class="text-caption text-on-surface-variant mb-4 line-clamp-2">توثيق مذهل لحياة الشعاب المرجانية وأهميتها في التوازن البيئي العالمي.</p>
+<div class="flex justify-between items-center mt-auto">
+<span class="text-primary font-bold">فريق ناشيونال</span>
+<button class="p-2 rounded-full bg-primary-container text-on-primary-container hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="bookmark">bookmark</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Alternative Categories -->
+<section class="mb-20">
+<h3 class="font-headline-md text-headline-md text-primary mb-8 text-center">أو تصفح أقسامنا الأكثر رواجاً</h3>
+<div class="flex flex-wrap justify-center gap-4">
+<a class="px-6 py-3 rounded-xl bg-surface-container-low border border-outline-variant hover:bg-primary-container hover:text-on-primary-container transition-all flex items-center gap-2 group" href="#">
+<span class="material-symbols-outlined text-secondary group-hover:text-on-primary-container" data-icon="history_edu">history_edu</span>
+                    التاريخ القديم
+                </a>
+<a class="px-6 py-3 rounded-xl bg-surface-container-low border border-outline-variant hover:bg-primary-container hover:text-on-primary-container transition-all flex items-center gap-2 group" href="#">
+<span class="material-symbols-outlined text-secondary group-hover:text-on-primary-container" data-icon="psychology">psychology</span>
+                    علم النفس
+                </a>
+<a class="px-6 py-3 rounded-xl bg-surface-container-low border border-outline-variant hover:bg-primary-container hover:text-on-primary-container transition-all flex items-center gap-2 group" href="#">
+<span class="material-symbols-outlined text-secondary group-hover:text-on-primary-container" data-icon="biotech">biotech</span>
+                    العلوم الحديثة
+                </a>
+<a class="px-6 py-3 rounded-xl bg-surface-container-low border border-outline-variant hover:bg-primary-container hover:text-on-primary-container transition-all flex items-center gap-2 group" href="#">
+<span class="material-symbols-outlined text-secondary group-hover:text-on-primary-container" data-icon="palette">palette</span>
+                    الفنون والعمارة
+                </a>
+<a class="px-6 py-3 rounded-xl bg-surface-container-low border border-outline-variant hover:bg-primary-container hover:text-on-primary-container transition-all flex items-center gap-2 group" href="#">
+<span class="material-symbols-outlined text-secondary group-hover:text-on-primary-container" data-icon="public">public</span>
+                    أدب الرحلات
+                </a>
+</div>
+</section>
+<!-- Search Tips Glass Card -->
+<section class="glass-card rounded-2xl p-10 max-w-4xl mx-auto border-l-8 border-secondary">
+<div class="flex flex-col md:flex-row items-center gap-10">
+<div class="shrink-0">
+<span class="material-symbols-outlined text-[80px] text-secondary" data-icon="lightbulb">lightbulb</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md mb-4 text-primary">نصائح لبحث أفضل</h3>
+<ul class="space-y-3 text-body-md text-on-surface-variant">
+<li class="flex items-center gap-3">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+                            تأكد من صحة إملاء الكلمات التي تبحث عنها.
+                        </li>
+<li class="flex items-center gap-3">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+                            استخدم كلمات مفتاحية أكثر عمومية بدلاً من العناوين الطويلة.
+                        </li>
+<li class="flex items-center gap-3">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+                            جرب البحث باسم المؤلف إذا كنت لا تتذكر عنوان الكتاب بدقة.
+                        </li>
+</ul>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-surface-dim mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center w-full py-8 px-margin-desktop gap-6 rtl">
+<div class="flex flex-col items-center md:items-start gap-2">
+<span class="font-label-md text-label-md font-bold text-primary">نظام المكتبة الذكية</span>
+<p class="font-label-sm text-label-sm text-on-surface opacity-80">© 2024 نظام المكتبة الذكية - جميع الحقوق محفوظة</p>
+</div>
+<div class="flex gap-8">
+<a class="text-secondary hover:text-primary transition-all hover:underline font-label-sm" href="#">المساعدة</a>
+<a class="text-secondary hover:text-primary transition-all hover:underline font-label-sm" href="#">سياسة الخصوصية</a>
+<a class="text-secondary hover:text-primary transition-all hover:underline font-label-sm" href="#">اتصل بنا</a>
+</div>
+<div class="flex gap-4">
+<button class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white hover:opacity-80 transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="share">share</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white hover:opacity-80 transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="mail">mail</span>
+</button>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions and effects
+        document.querySelectorAll('button, a').forEach(el => {
+            el.addEventListener('click', (e) => {
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                el.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        // Search Bar Focus Effect
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('scale-105');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('scale-105');
+        });
+    </script>
+</body></html>

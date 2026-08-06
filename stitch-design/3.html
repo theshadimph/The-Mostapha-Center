@@ -1,0 +1,226 @@
+<!DOCTYPE html><html class="light" dir="rtl" lang="ar"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>تسجيل الدخول | نظام المكتبة الذكية</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error-container": "#ffdad6",
+                    "secondary-container": "#ffa91e",
+                    "outline-variant": "#bfc9c1",
+                    "on-error-container": "#93000a",
+                    "on-tertiary": "#ffffff",
+                    "on-background": "#191c1d",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#f3f4f5",
+                    "surface": "#f8f9fa",
+                    "on-primary-fixed": "#002114",
+                    "error": "#ba1a1a",
+                    "secondary-fixed": "#ffddb6",
+                    "on-secondary-fixed": "#2a1800",
+                    "tertiary-fixed": "#d1e8dc",
+                    "surface-bright": "#f8f9fa",
+                    "inverse-surface": "#2e3132",
+                    "secondary-fixed-dim": "#ffb95a",
+                    "tertiary-fixed-dim": "#b5ccc0",
+                    "on-tertiary-container": "#c9dfd4",
+                    "on-secondary-container": "#6a4300",
+                    "tertiary": "#384c43",
+                    "surface-container-high": "#e7e8e9",
+                    "primary": "#0f5238",
+                    "surface-variant": "#e1e3e4",
+                    "on-primary-fixed-variant": "#0e5138",
+                    "on-error": "#ffffff",
+                    "tertiary-container": "#4f645b",
+                    "on-secondary": "#ffffff",
+                    "surface-container": "#edeeef",
+                    "primary-fixed-dim": "#95d4b3",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-tertiary-fixed-variant": "#374b42",
+                    "secondary": "#845400",
+                    "primary-container": "#2d6a4f",
+                    "primary-fixed": "#b1f0ce",
+                    "inverse-primary": "#95d4b3",
+                    "on-surface": "#191c1d",
+                    "outline": "#707973",
+                    "on-primary": "#ffffff",
+                    "on-secondary-fixed-variant": "#643f00",
+                    "inverse-on-surface": "#f0f1f2",
+                    "on-tertiary-fixed": "#0b1f18",
+                    "surface-tint": "#2c694e",
+                    "surface-dim": "#d9dadb",
+                    "on-surface-variant": "#404943",
+                    "background": "#f8f9fa",
+                    "on-primary-container": "#a8e7c5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "container-max": "1280px",
+                    "base": "8px",
+                    "gutter": "24px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "40px"
+            },
+            "fontFamily": {
+                    "body-md": ["IBM Plex Sans"],
+                    "body-lg": ["IBM Plex Sans"],
+                    "headline-lg-mobile": ["IBM Plex Sans"],
+                    "caption": ["IBM Plex Sans"],
+                    "headline-xl": ["IBM Plex Sans"],
+                    "headline-md": ["IBM Plex Sans"],
+                    "label-bold": ["IBM Plex Sans"],
+                    "headline-lg": ["IBM Plex Sans"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "caption": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                    "headline-xl": ["48px", {"lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-bold": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background-color: #f8f9fa; /* Surface */
+        }
+        .emerald-gradient {
+            background: linear-gradient(135deg, #0f5238 0%, #2d6a4f 100%);
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(15, 82, 56, 0.1);
+        }
+        .input-transition {
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .btn-hover-effect {
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease;
+        }
+        .btn-hover-effect:active {
+            transform: scale(0.97);
+        }
+        /* Knowledge Pattern Overlay */
+        .knowledge-pattern {
+            opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M54.826 22.528h-4.826v18.444h4.826c1.477 0 2.674-1.197 2.674-2.674v-13.096c0-1.477-1.197-2.674-2.674-2.674zM4.174 22.528h4.826v18.444H4.174C2.697 40.972 1.5 39.775 1.5 38.298v-13.096c0-1.477 1.197-2.674 2.674-2.674zM24.5 15h11v30h-11V15zm-14 5h8v20h-8V20zm28 0h8v20h-8V20z' fill='%230f5238' fill-opacity='1' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col items-center justify-center overflow-x-hidden">
+<!-- Subtle Background Elements -->
+<div class="fixed inset-0 knowledge-pattern pointer-events-none"></div>
+<div class="fixed -top-24 -left-24 w-96 h-96 bg-primary-fixed-dim/20 blur-[120px] rounded-full pointer-events-none"></div>
+<div class="fixed -bottom-24 -right-24 w-96 h-96 bg-secondary-container/10 blur-[120px] rounded-full pointer-events-none"></div>
+<!-- Main Container -->
+<main class="w-full max-w-md px-margin-mobile md:px-0 relative z-10">
+<!-- Branding Section -->
+<div class="text-center mb-10">
+<div class="inline-flex items-center justify-center w-20 h-20 rounded-full emerald-gradient text-white mb-6 shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined !text-4xl" style="font-variation-settings: 'FILL' 1;">auto_stories</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-primary mb-2">نظام المكتبة الذكية</h1>
+<p class="font-body-md text-on-surface-variant">مرحباً بك مجدداً، يرجى تسجيل الدخول للوصول إلى رفوفك</p>
+</div>
+<!-- Login Card -->
+<div class="glass-effect rounded-xl p-8 shadow-xl shadow-primary/5">
+<form action="dashboard.html" class="space-y-6" method="POST">
+<!-- Email Field -->
+<div class="space-y-2">
+<label class="block font-label-bold text-primary mr-1" for="email">البريد الإلكتروني</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">mail</span>
+<input class="w-full pr-12 pl-4 py-3 bg-surface-container-lowest border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none input-transition text-body-md" id="email" name="email" placeholder="example@library.com" required="" type="email">
+</div>
+</div>
+<!-- Password Field -->
+<div class="space-y-2">
+<label class="block font-label-bold text-primary mr-1" for="password">كلمة المرور</label>
+<div class="relative group">
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">lock</span>
+<input class="w-full pr-12 pl-4 py-3 bg-surface-container-lowest border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none input-transition text-body-md" id="password" name="password" placeholder="••••••••" required="" type="password">
+</div>
+</div>
+<!-- Remember Me & Forgot Password -->
+<div class="flex items-center justify-between text-body-md">
+<label class="flex items-center gap-2 cursor-pointer group">
+<div class="relative flex items-center">
+<input class="peer appearance-none w-5 h-5 border-2 border-outline-variant rounded-md checked:bg-primary checked:border-primary transition-all cursor-pointer" type="checkbox">
+<span class="material-symbols-outlined absolute opacity-0 peer-checked:opacity-100 text-white text-[16px] pointer-events-none right-0.5" style="font-variation-settings: 'wght' 700;">check</span>
+</div>
+<span class="text-on-surface-variant group-hover:text-primary transition-colors">تذكرني</span>
+</label>
+<a class="text-secondary font-medium hover:text-primary transition-colors hover:underline underline-offset-4" href="#">نسيت كلمة المرور؟</a>
+</div>
+<!-- Submit Button -->
+<button class="w-full emerald-gradient text-white py-4 rounded-lg font-label-bold text-lg shadow-lg shadow-primary/30 btn-hover-effect flex items-center justify-center gap-3" type="submit">
+<span class="">دخول إلى النظام</span>
+<span class="material-symbols-outlined">login</span>
+</button>
+</form>
+<!-- Secondary Actions -->
+<div class="mt-8 pt-6 border-t border-outline-variant/30 text-center">
+<p class="text-on-surface-variant font-body-md mb-4">ليس لديك حساب؟</p>
+<a href="registration.html" class="w-full py-3 px-6 border-2 border-primary text-primary rounded-lg font-label-bold hover:bg-primary-fixed transition-all active:scale-[0.98] block text-center">طلب انضمام للمكتبة</a>
+</div>
+</div>
+<!-- Footer Info -->
+<footer class="mt-12 text-center text-on-surface-variant opacity-60">
+<p class="font-caption">© 2024 نظام المكتبة الذكية - جميع الحقوق محفوظة</p>
+<div class="flex justify-center gap-6 mt-4 font-caption">
+<a class="hover:text-primary transition-colors" href="#">الشروط والأحكام</a>
+<a class="hover:text-primary transition-colors" href="#">سياسة الخصوصية</a>
+<a class="hover:text-primary transition-colors" href="#">المساعدة</a>
+</div>
+</footer>
+</main>
+<!-- Side Illustration/Atmosphere (Visible on MD screens and above) -->
+<div class="hidden lg:block fixed left-0 top-0 h-full w-[35%] bg-surface-container-low overflow-hidden">
+<div class="w-full h-full bg-cover bg-center mix-blend-multiply opacity-30" data-alt="A cinematic, high-contrast photograph of a grand, modern library hallway with towering emerald green bookshelves and warm amber accent lighting. The architecture is clean and professional with polished marble floors reflecting the soft light. Dust motes dance in the air, creating a serene and intellectual atmosphere. The overall style is prestigious, blending tradition with cutting-edge technology." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAxxBFhF9_hYMCULu4BHVGqsGCl1BP8d92KcUmtIgHdxB9K6Hclia4lzPNjN5Idg8jPk0U3mB5f0ROHPVE6E67winK_q41qW_DGY4mtGMOhhejXzC2VK3sQOlZ0cCdAVUBuCkw2Qwd9GDDXtw51One_2Wl4w2T32nqaVSTNr1yGm16w76RolJWuEV4L94Irjk-I6G0xvWTREDgBcZitQGEsb5sZ27YkL0BXi3kvwPBt-4u0pkzGgiMg5w')"></div>
+<div class="absolute inset-0 bg-gradient-to-r from-background via-transparent to-transparent"></div>
+<div class="absolute bottom-12 left-12 right-12 text-primary">
+<span class="material-symbols-outlined !text-6xl mb-4" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+<h2 class="font-headline-lg text-headline-lg mb-2">المعرفة قوة</h2>
+<p class="font-body-lg text-tertiary">استكشف آلاف الكتب والمصادر الرقمية في بيئة ذكية متكاملة مصممة للباحثين والقراء المعاصرين.</p>
+</div>
+</div>
+<!-- Script for a subtle interaction -->
+<script>
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.innerHTML = `
+                <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <span>جاري التحقق...</span>
+            `;
+            // Simulate loading
+            setTimeout(() => {
+                // Here would be actual auth logic
+            }, 2000);
+        });
+    </script>
+
+
+</body></html>
