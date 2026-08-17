@@ -45,12 +45,12 @@ class SecurityTest extends TestCase
         $response->assertOk();
 
         /* @chisel-passkeys */
-        $response->assertSee('Passkeys');
-        $response->assertSee('No passkeys yet');
+        $response->assertSee('مفاتيح المرور');
+        $response->assertSee('لا توجد مفاتيح مرور بعد');
         /* @end-chisel-passkeys */
         /* @chisel-2fa */
-        $response->assertSee('Two-factor authentication');
-        $response->assertSee('Enable 2FA');
+        $response->assertSee('التحقق بخطوتين');
+        $response->assertSee('تفعيل التحقق بخطوتين');
         /* @end-chisel-2fa */
     }
 
@@ -78,10 +78,10 @@ class SecurityTest extends TestCase
             /* @end-chisel-password-confirmation */
             ->get(route('security.edit'))
             ->assertOk()
-            ->assertSee('Update password')
-            ->assertDontSee('Manage your passkeys for passwordless sign-in')
-            ->assertDontSee('Add a passkey to sign in without a password')
-            ->assertDontSee('Two-factor authentication');
+            ->assertSee('تحديث كلمة المرور')
+            ->assertDontSee('إدارة مفاتيح المرور الخاصة بك لتسجيل الدخول بدون كلمة مرور')
+            ->assertDontSee('أضف مفتاح مرور لتسجيل الدخول بدون كلمة مرور')
+            ->assertDontSee('التحقق بخطوتين');
     }
 
     public function test_two_factor_authentication_disabled_when_confirmation_abandoned_between_requests(): void

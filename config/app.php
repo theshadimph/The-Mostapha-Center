@@ -123,4 +123,39 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Center Contact Details
+    |--------------------------------------------------------------------------
+    |
+    | Shown on the public "Contact us" page. Left unset, the corresponding
+    | section is hidden rather than showing placeholder/fake information —
+    | fill these in via .env once the center's real details are available.
+    |
+    */
+
+    'contact' => [
+        'phone' => env('CENTER_PHONE'),
+        'whatsapp' => env('CENTER_WHATSAPP'),
+        'address' => env('CENTER_ADDRESS'),
+        'email' => env('CONTACT_EMAIL'),
+        'map_url' => env('CENTER_MAP_URL'),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | First Super-Admin Account
+    |--------------------------------------------------------------------------
+    |
+    | Used by AdminUserSeeder to bootstrap the first admin account. Change
+    | the password via .env before seeding a production database.
+    |
+    */
+
+    'admin' => [
+        'name' => env('ADMIN_NAME', 'مدير المكتبة'),
+        'email' => env('ADMIN_EMAIL', 'admin@mostapha-center.org'),
+        'password' => env('ADMIN_PASSWORD', 'password'),
+    ],
+
 ];

@@ -29,8 +29,9 @@ class RegistrationTest extends TestCase
         $user = User::where('email', 'test@example.com')->first();
 
         $response->assertSessionHasNoErrors()
-            ->assertRedirect(route('dashboard', absolute: false));
+            ->assertRedirect(route('home', absolute: false));
 
         $this->assertAuthenticated();
+        $this->assertNull($user->role);
     }
 }

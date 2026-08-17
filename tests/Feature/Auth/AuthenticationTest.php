@@ -33,13 +33,29 @@ class AuthenticationTest extends TestCase
 
         $response
             ->assertSessionHasNoErrors()
+            ->assertRedirect(route('home', absolute: false));
+
+        $this->assertAuthenticated();
+    }
+
+    public function test_staff_users_are_redirected_to_the_dashboard_on_login(): void
+    {
+        $user = User::factory()->librarian()->create();
+
+        $response = $this->post(route('login.store'), [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+
+        $response
+            ->assertSessionHasNoErrors()
             ->assertRedirect(route('dashboard', absolute: false));
 
         $this->assertAuthenticated();
     }
 
     /* @chisel-passkeys */
-    public function test_passkey_login_response_redirects_to_the_current_team_dashboard(): void
+    public function test_passkey_login_response_redirects_non_staff_users_home(): void
     {
         $user = User::factory()->create();
 
@@ -52,7 +68,25 @@ class AuthenticationTest extends TestCase
         $jsonResponse = app(PasskeyLoginResponse::class)->toResponse($request);
 
         $this->assertSame(
-            route('dashboard', ['current_team' => $user->personalTeam()->slug]),
+            route('home'),
+            $jsonResponse->getData()->redirect,
+        );
+    }
+
+    public function test_passkey_login_response_redirects_staff_users_to_the_dashboard(): void
+    {
+        $user = User::factory()->librarian()->create();
+
+        $request = Request::create(route('login', absolute: false), 'GET', server: [
+            'HTTP_ACCEPT' => 'application/json',
+        ]);
+        $request->setLaravelSession($this->app['session.store']);
+        $request->setUserResolver(fn () => $user);
+
+        $jsonResponse = app(PasskeyLoginResponse::class)->toResponse($request);
+
+        $this->assertSame(
+            route('dashboard'),
             $jsonResponse->getData()->redirect,
         );
     }

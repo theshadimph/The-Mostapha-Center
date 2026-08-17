@@ -5,15 +5,12 @@
         <!-- Session Status -->
         <x-auth-session-status class="text-center" :status="session('status')" />
 
-        @if ($teamInvitation)
-            <x-team-invitation-alert :invitation="$teamInvitation" :action="__('Register')" />
-        @endif
-
         <form method="POST" action="{{ route('register.store') }}" class="flex flex-col gap-6">
             @csrf
             <!-- Name -->
-            <flux:input
+            <x-input
                 name="name"
+                icon="person"
                 :label="__('Name')"
                 :value="old('name')"
                 type="text"
@@ -24,8 +21,9 @@
             />
 
             <!-- Email Address -->
-            <flux:input
+            <x-input
                 name="email"
+                icon="mail"
                 :label="__('Email address')"
                 :value="old('email')"
                 type="email"
@@ -35,8 +33,9 @@
             />
 
             <!-- Password -->
-            <flux:input
+            <x-input
                 name="password"
+                icon="lock"
                 :label="__('Password')"
                 type="password"
                 required
@@ -47,8 +46,9 @@
             />
 
             <!-- Confirm Password -->
-            <flux:input
+            <x-input
                 name="password_confirmation"
+                icon="lock"
                 :label="__('Confirm password')"
                 type="password"
                 required
@@ -59,21 +59,21 @@
             />
 
             <div class="flex items-center justify-end">
-                <flux:button type="submit" variant="primary" class="w-full" data-test="register-user-button">
+                <x-button type="submit" variant="primary" class="w-full" data-test="register-user-button">
                     {{ __('Create account') }}
-                </flux:button>
+                </x-button>
             </div>
         </form>
 
-        <div class="space-x-1 rtl:space-x-reverse text-center text-sm text-zinc-600 dark:text-zinc-400">
+        <div class="space-x-1 rtl:space-x-reverse text-center text-sm text-on-surface-variant">
             <span>{{ __('Already have an account?') }}</span>
-            <flux:link
-                :href="$teamInvitation ? route('login', ['invitation' => $teamInvitation['code']]) : route('login')"
-                data-test="team-invitation-login-link"
+            <x-link
+                :href="route('login')"
+                data-test="login-link"
                 wire:navigate
             >
                 {{ __('Log in') }}
-            </flux:link>
+            </x-link>
         </div>
     </div>
 </x-layouts::auth>

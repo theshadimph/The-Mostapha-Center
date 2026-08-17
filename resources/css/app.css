@@ -1,66 +1,197 @@
 @import 'tailwindcss';
-@import '../../vendor/livewire/flux/dist/flux.css';
 
 @source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../vendor/livewire/flux-pro/stubs/**/*.blade.php';
-@source '../../vendor/livewire/flux/stubs/**/*.blade.php';
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/*
+ * Design tokens ported from the Stitch mockups (stitch-design/*.html).
+ * Role names follow Material Design 3 naming so every mockup's classes
+ * (bg-primary-container, text-on-surface-variant, ...) work unchanged.
+ */
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'IBM Plex Sans Arabic', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
-    --color-zinc-50: #fafafa;
-    --color-zinc-100: #f5f5f5;
-    --color-zinc-200: #e5e5e5;
-    --color-zinc-300: #d4d4d4;
-    --color-zinc-400: #a3a3a3;
-    --color-zinc-500: #737373;
-    --color-zinc-600: #525252;
-    --color-zinc-700: #404040;
-    --color-zinc-800: #262626;
-    --color-zinc-900: #171717;
-    --color-zinc-950: #0a0a0a;
+    /* Light scheme (verbatim from the Stitch configs) */
+    --color-primary: #0f5238;
+    --color-on-primary: #ffffff;
+    --color-primary-container: #2d6a4f;
+    --color-on-primary-container: #a8e7c5;
+    --color-primary-fixed: #b1f0ce;
+    --color-primary-fixed-dim: #95d4b3;
+    --color-on-primary-fixed: #002114;
+    --color-on-primary-fixed-variant: #0e5138;
 
-    --color-accent: var(--color-neutral-800);
-    --color-accent-content: var(--color-neutral-800);
-    --color-accent-foreground: var(--color-white);
+    --color-secondary: #845400;
+    --color-on-secondary: #ffffff;
+    --color-secondary-container: #ffa91e;
+    --color-on-secondary-container: #6a4300;
+    --color-secondary-fixed: #ffddb6;
+    --color-secondary-fixed-dim: #ffb95a;
+    --color-on-secondary-fixed: #2a1800;
+    --color-on-secondary-fixed-variant: #643f00;
+
+    --color-tertiary: #384c43;
+    --color-on-tertiary: #ffffff;
+    --color-tertiary-container: #4f645b;
+    --color-on-tertiary-container: #c9dfd4;
+    --color-tertiary-fixed: #d1e8dc;
+    --color-tertiary-fixed-dim: #b5ccc0;
+    --color-on-tertiary-fixed: #0b1f18;
+    --color-on-tertiary-fixed-variant: #374b42;
+
+    --color-error: #ba1a1a;
+    --color-on-error: #ffffff;
+    --color-error-container: #ffdad6;
+    --color-on-error-container: #93000a;
+
+    --color-background: #f8f9fa;
+    --color-on-background: #191c1d;
+    --color-surface: #f8f9fa;
+    --color-on-surface: #191c1d;
+    --color-surface-variant: #e1e3e4;
+    --color-on-surface-variant: #404943;
+    --color-surface-dim: #d9dadb;
+    --color-surface-bright: #f8f9fa;
+    --color-surface-tint: #2c694e;
+
+    --color-surface-container-lowest: #ffffff;
+    --color-surface-container-low: #f3f4f5;
+    --color-surface-container: #edeeef;
+    --color-surface-container-high: #e7e8e9;
+    --color-surface-container-highest: #e1e3e4;
+
+    --color-outline: #707973;
+    --color-outline-variant: #bfc9c1;
+
+    --color-inverse-surface: #2e3132;
+    --color-inverse-on-surface: #f0f1f2;
+    --color-inverse-primary: #95d4b3;
+
+    /* Radius + spacing + container scale (verbatim) */
+    --radius-DEFAULT: 0.125rem;
+    --radius-lg: 0.25rem;
+    --radius-xl: 0.5rem;
+    --radius-full: 0.75rem;
+
+    --spacing-gutter: 24px;
+    --spacing-base: 8px;
+    --spacing-margin-mobile: 16px;
+    --spacing-margin-desktop: 40px;
+    --container-max: 1280px;
+
+    /* Typography scale */
+    --text-caption: 12px;
+    --text-caption--line-height: 16px;
+    --text-caption--font-weight: 400;
+
+    --text-label-sm: 12px;
+    --text-label-sm--line-height: 16px;
+    --text-label-sm--font-weight: 500;
+
+    --text-label-md: 14px;
+    --text-label-md--line-height: 20px;
+    --text-label-md--font-weight: 600;
+
+    --text-label-bold: 14px;
+    --text-label-bold--line-height: 20px;
+    --text-label-bold--letter-spacing: 0.05em;
+    --text-label-bold--font-weight: 600;
+
+    --text-body-md: 16px;
+    --text-body-md--line-height: 24px;
+    --text-body-md--font-weight: 400;
+
+    --text-body-lg: 18px;
+    --text-body-lg--line-height: 28px;
+    --text-body-lg--font-weight: 400;
+
+    --text-headline-md: 24px;
+    --text-headline-md--line-height: 32px;
+    --text-headline-md--font-weight: 600;
+
+    --text-headline-lg-mobile: 24px;
+    --text-headline-lg-mobile--line-height: 32px;
+    --text-headline-lg-mobile--font-weight: 700;
+
+    --text-headline-lg: 32px;
+    --text-headline-lg--line-height: 40px;
+    --text-headline-lg--letter-spacing: -0.01em;
+    --text-headline-lg--font-weight: 700;
+
+    --text-headline-xl: 48px;
+    --text-headline-xl--line-height: 60px;
+    --text-headline-xl--letter-spacing: -0.02em;
+    --text-headline-xl--font-weight: 700;
 }
 
+/*
+ * Dark scheme. Stitch never designed one, so it's derived mechanically from
+ * the light tokens above using standard Material Design 3 conventions:
+ * the *-fixed-dim / inverse-* roles Stitch already provides are exactly the
+ * "how this looks on the other scheme" tokens, and the remaining roles are
+ * built the same way M3 dark schemes are (container/on-container swapped in
+ * lightness, surface-container scale reversed). Treat this as an
+ * approximation, not a pixel-sourced design.
+ */
 @layer theme {
     .dark {
-        --color-accent: var(--color-white);
-        --color-accent-content: var(--color-white);
-        --color-accent-foreground: var(--color-neutral-800);
+        --color-primary: #95d4b3;
+        --color-on-primary: #003824;
+        --color-primary-container: #0e5138;
+        --color-on-primary-container: #b1f0ce;
+
+        --color-secondary: #ffb95a;
+        --color-on-secondary: #452b00;
+        --color-secondary-container: #643f00;
+        --color-on-secondary-container: #ffddb6;
+
+        --color-tertiary: #b5ccc0;
+        --color-on-tertiary: #1f352c;
+        --color-tertiary-container: #374b42;
+        --color-on-tertiary-container: #d1e8dc;
+
+        --color-error: #ffb4ab;
+        --color-on-error: #690005;
+        --color-error-container: #93000a;
+        --color-on-error-container: #ffdad6;
+
+        --color-background: #191c1d;
+        --color-on-background: #e1e3e4;
+        --color-surface: #191c1d;
+        --color-on-surface: #e1e3e4;
+        --color-surface-variant: #404943;
+        --color-on-surface-variant: #bfc9c1;
+        --color-surface-dim: #101415;
+        --color-surface-bright: #363a3b;
+        --color-surface-tint: #95d4b3;
+
+        --color-surface-container-lowest: #0b0e0f;
+        --color-surface-container-low: #191c1d;
+        --color-surface-container: #1d2021;
+        --color-surface-container-high: #282b2c;
+        --color-surface-container-highest: #333637;
+
+        --color-outline: #8a938c;
+        --color-outline-variant: #404943;
+
+        --color-inverse-surface: #e1e3e4;
+        --color-inverse-on-surface: #2e3132;
+        --color-inverse-primary: #0f5238;
     }
 }
 
 @layer base {
-
     *,
     ::after,
     ::before,
     ::backdrop,
     ::file-selector-button {
-        border-color: var(--color-gray-200, currentColor);
+        border-color: var(--color-outline-variant, currentColor);
+    }
+
+    [x-cloak] {
+        display: none !important;
     }
 }
-
-[data-flux-field]:not(ui-radio, ui-checkbox) {
-    @apply grid gap-2;
-}
-
-[data-flux-label] {
-    @apply  !mb-0 !leading-tight;
-}
-
-input:focus[data-flux-control],
-textarea:focus[data-flux-control],
-select:focus[data-flux-control] {
-    @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
-}
-
-/* \[:where(&)\]:size-4 {
-    @apply size-4;
-} */

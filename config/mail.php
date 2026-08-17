@@ -115,4 +115,17 @@ return [
         'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Public Contact Form Recipient
+    |--------------------------------------------------------------------------
+    |
+    | Where messages submitted through the public "Contact us" form are sent.
+    | Left null the form still validates and confirms to the visitor, but
+    | silently skips sending until this is configured for production.
+    |
+    */
+
+    'contact_recipient' => env('CONTACT_EMAIL'),
+
 ];

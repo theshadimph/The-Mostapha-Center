@@ -11,9 +11,10 @@
             <input type="hidden" name="token" value="{{ request()->route('token') }}">
 
             <!-- Email Address -->
-            <flux:input
+            <x-input
                 name="email"
                 value="{{ request('email') }}"
+                icon="mail"
                 :label="__('Email')"
                 type="email"
                 required
@@ -21,8 +22,9 @@
             />
 
             <!-- Password -->
-            <flux:input
+            <x-input
                 name="password"
+                icon="lock"
                 :label="__('Password')"
                 type="password"
                 required
@@ -33,8 +35,9 @@
             />
 
             <!-- Confirm Password -->
-            <flux:input
+            <x-input
                 name="password_confirmation"
+                icon="lock"
                 :label="__('Confirm password')"
                 type="password"
                 required
@@ -45,9 +48,9 @@
             />
 
             <div class="flex items-center justify-end">
-                <flux:button type="submit" variant="primary" class="w-full" data-test="reset-password-button">
+                <x-button type="submit" variant="primary" class="w-full" data-test="reset-password-button">
                     {{ __('Reset password') }}
-                </flux:button>
+                </x-button>
             </div>
         </form>
     </div>

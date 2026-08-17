@@ -1,45 +1,41 @@
-@props(['showTeam' => true])
+@props(['showRole' => true])
 
-<flux:dropdown position="bottom" align="start">
-    <button type="button" class="group flex w-full items-center rounded-lg p-1 hover:bg-zinc-800/5 dark:hover:bg-white/10" data-test="sidebar-menu-button">
-        <flux:avatar :initials="auth()->user()->initials()" size="sm" />
-        <div class="in-data-flux-sidebar-collapsed-desktop:hidden mx-2 grid flex-1 text-start text-sm leading-tight">
-            <span class="truncate font-medium text-zinc-500 group-hover:text-zinc-800 dark:text-white/80 dark:group-hover:text-white">{{ auth()->user()->name }}</span>
-            @if($showTeam && auth()->user()->currentTeam)
-                <span class="truncate text-xs text-zinc-400 dark:text-zinc-500">{{ auth()->user()->currentTeam->name }}</span>
-            @endif
-        </div>
-        <flux:icon name="chevrons-up-down" variant="micro" class="in-data-flux-sidebar-collapsed-desktop:hidden ms-auto size-4 text-zinc-400 group-hover:text-zinc-800 dark:text-white/80 dark:group-hover:text-white" />
-    </button>
+<x-dropdown align="start">
+    <x-slot:trigger>
+        <button type="button" class="group flex items-center gap-2 rounded-lg p-1 hover:bg-surface-container-high" data-test="sidebar-menu-button">
+            <x-avatar :initials="auth()->user()->initials()" size="sm" />
+            <div class="hidden text-right leading-tight lg:grid">
+                <span class="truncate text-label-sm font-medium text-on-surface">{{ auth()->user()->name }}</span>
+                @if ($showRole && auth()->user()->role)
+                    <span class="truncate text-caption text-on-surface-variant">{{ auth()->user()->role->label() }}</span>
+                @endif
+            </div>
+            <x-icon name="unfold_more" class="hidden text-lg text-on-surface-variant lg:block" />
+        </button>
+    </x-slot:trigger>
 
-    <flux:menu>
-        <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
-            <flux:avatar
-                :name="auth()->user()->name"
-                :initials="auth()->user()->initials()"
-            />
-            <div class="grid flex-1 text-start text-sm leading-tight">
-                <flux:heading class="truncate">{{ auth()->user()->name }}</flux:heading>
-                <flux:text class="truncate">{{ auth()->user()->email }}</flux:text>
+    <x-slot:menu>
+        <div class="flex items-center gap-2 px-4 py-2.5">
+            <x-avatar :name="auth()->user()->name" :initials="auth()->user()->initials()" />
+            <div class="grid flex-1 text-right leading-tight">
+                <span class="truncate text-label-md font-bold text-on-surface">{{ auth()->user()->name }}</span>
+                <span class="truncate text-caption text-on-surface-variant">{{ auth()->user()->email }}</span>
             </div>
         </div>
-        <flux:menu.separator />
-        <flux:menu.radio.group>
-            <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate>
-                {{ __('Settings') }}
-            </flux:menu.item>
-            <form method="POST" action="{{ route('logout') }}" class="w-full">
-                @csrf
-                <flux:menu.item
-                    as="button"
-                    type="submit"
-                    icon="arrow-right-start-on-rectangle"
-                    class="w-full cursor-pointer"
-                    data-test="logout-button"
-                >
-                    {{ __('Log out') }}
-                </flux:menu.item>
-            </form>
-        </flux:menu.radio.group>
-    </flux:menu>
-</flux:dropdown>
+
+        <div class="my-1 border-t border-outline-variant"></div>
+
+        <x-menu-item :href="route('profile.edit')" icon="settings" wire:navigate>
+            {{ __('Settings') }}
+        </x-menu-item>
+
+        <div class="my-1 border-t border-outline-variant"></div>
+
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <x-menu-item type="submit" icon="logout" class="w-full" data-test="logout-button">
+                {{ __('Log out') }}
+            </x-menu-item>
+        </form>
+    </x-slot:menu>
+</x-dropdown>
